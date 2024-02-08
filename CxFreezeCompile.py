@@ -7,7 +7,12 @@ build_options = {
     "include_files": ["resources/"],
 }
 
-base = "Win32GUI" if sys.platform == "win32" else None
+if sys.platform == "win32":
+    base = "Win32GUI"
+elif sys.platform == "linux":
+    base = None
+else:
+    raise Exception("Unsupported platform: " + sys.platform)
 
 setup(
     name = "PalEdit v0.5",

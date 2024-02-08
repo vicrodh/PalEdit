@@ -1,4 +1,4 @@
-import os, webbrowser, json, time, uuid, math
+import os, webbrowser, json, time, uuid, math, platform
 
 # pyperclip
 # docs: https://pypi.org/project/pyperclip/#description
@@ -46,27 +46,27 @@ goodskill = "#FEDE00"
 
 
 def hex_to_rgb(value):
-   value = value.lstrip('#')
-   lv = len(value)
-   return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 
 def rgb_to_hex(rgb):
-   return '%02x%02x%02x' % rgb
+    return '%02x%02x%02x' % rgb
 
 
 def mean_color(color1, color2):
-   rgb1 = hex_to_rgb(color1.replace("#", ""))
-   rgb2 = hex_to_rgb(color2.replace("#", ""))
+    rgb1 = hex_to_rgb(color1.replace("#", ""))
+    rgb2 = hex_to_rgb(color2.replace("#", ""))
 
-   avg = lambda x, y: round((x+y) / 2)
+    avg = lambda x, y: round((x+y) / 2)
 
-   new_rgb = ()
+    new_rgb = ()
 
-   for i in range(len(rgb1)):
-      new_rgb += (avg(rgb1[i], rgb2[i]),)
-       
-   return "#"+rgb_to_hex(new_rgb)
+    for i in range(len(rgb1)):
+        new_rgb += (avg(rgb1[i], rgb2[i]),)
+
+    return "#"+rgb_to_hex(new_rgb)
 
 def toggleDebug():
     global debug
@@ -123,7 +123,6 @@ def updateAttacks():
     pal = palbox[players[current.get()]][i]
     attackops = [PalAttacks[e] for e in PalAttacks]
     
-          
     for a in range(0,3):
         if a > len(pal.GetEquippedMoves())-1:
             attacks[a].set("None")
@@ -408,8 +407,16 @@ def changetext(num):
 def loadfile():
     global filename
     skilllabel.config(text="Loading save, please be patient...")
+    print(platform.system())
+    if platform.system() == "Linux":
+        game_folder = os.path.expanduser('~')+"/.local/share/Steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames/"
+        if not os.path.exists(game_folder):
+            game_folder = os.path.expanduser('~')
+            print("Game folder not found")
+        file = askopenfilename(initialdir=game_folder, filetypes=[("Level.sav", "Level.sav", ".sav")])
+    else:
+        file = askopenfilename(initialdir=os.path.expanduser('~')+"\AppData\Local\Pal\Saved\SaveGames", filetype=[("Level.sav", "Level.sav")])
 
-    file = askopenfilename(initialdir=os.path.expanduser('~')+"\AppData\Local\Pal\Saved\SaveGames", filetype=[("Level.sav", "Level.sav")])
     print(f"Opening file {file}")
 
     if file:
@@ -460,6 +467,7 @@ def load(file):
             n = p.GetFullName()
 
             for m in p.GetLearntMoves():
+                print(f"Checking {m}")
                 if not m in nullmoves:
                     if not m in PalAttacks:
                         nullmoves.append(mp)
