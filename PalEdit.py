@@ -15,6 +15,53 @@ from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter import messagebox
 from PIL import ImageTk, Image
+from babel.support import Translations
+# import gettext
+from copy import copy
+from inspect import currentframe
+
+
+LOCALE_PATH = 'locale'  # the path of the locale folder
+selected_language = 'en_US'  # initial language
+
+# Load translations
+translations = Translations.load(LOCALE_PATH, [selected_language])
+_ = translations.gettext
+
+# Dictionary to store original text for widgets
+original_text = {}
+
+def store_original_text(root):
+    global original_text
+    for widget in root.winfo_children():
+        if isinstance(widget, (tk.Label, tk.Button, tk.Entry, tk.Text)):
+            original_text[widget] = widget.cget("text")
+        store_original_text(widget)  # Recursively store text for child widgets
+        if isinstance(widget, ttk.Notebook):
+            for child in widget.winfo_children():
+                if isinstance(child, ttk.Frame):
+                    for grandchild in child.winfo_children():
+                        if isinstance(grandchild, (tk.Label, tk.Button, tk.Entry, tk.Text)):
+                            original_text[grandchild] = grandchild.cget("text")
+
+def refresh_text(root):
+    global original_text
+    for widget, original_text_value in original_text.items():
+        translated_text = _(original_text_value)
+        widget.config(text=translated_text)
+    for widget in root.winfo_children():
+        refresh_text(widget)  # Recursively update text for child widgets
+
+def change_language(language):
+    global translations, _, selected_language
+    translations = Translations.load(LOCALE_PATH, [language])
+    _ = translations.gettext
+    selected_language = language
+    print(f"Language changed to {language}")
+    refresh_text(root)
+
+
+
 
 
 global palbox
@@ -39,11 +86,14 @@ global filename
 filename = ""
 
 
-ftsize = 18
+ftsize = 16
 badskill = "#DE3C3A"
 okayskill = "#DFE8E7"
 goodskill = "#FEDE00"
 
+def f(s: str) -> str:
+    frame = currentframe().f_back 
+    return eval(f"f'{s}'", copy(frame.f_globals) | frame.f_locals)
 
 def hex_to_rgb(value):
     value = value.lstrip('#')
@@ -95,17 +145,18 @@ def getSelectedPalInfo():
         return
     i = int(listdisplay.curselection()[0])
     pal = palbox[players[current.get()]][i]
-    print(f"Get Info: {pal.GetNickname()}")     
-    print(f"  - Level: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}")    
-    print(f"  - Rank: {pal.GetRank()}")    
-    print(f"  - Skill 1:  {skills[0].get()}")
-    print(f"  - Skill 2:  {skills[1].get()}")
-    print(f"  - Skill 3:  {skills[2].get()}")
-    print(f"  - Skill 4:  {skills[3].get()}")
-    print(f"  - HP IV:  {pal.GetTalentHP()}")
-    print(f"  - Melee IV:  {pal.GetAttackMelee()}")
-    print(f"  - Range IV:  {pal.GetAttackRanged()}")
-
+    print(f(_("Get Info: {pal.GetNickname()}")))     
+    print(f(_("  - Level: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}")))
+    print(f(_("  - Rank: {pal.GetRank()}")))
+    print(f(_("  - Skill 1:  {skills[0].get()}")))
+    print(f(_("  - Skill 2:  {skills[1].get()}")))
+    print(f(_("  - Skill 3:  {skills[2].get()}")))
+    print(f(_("  - Skill 4:  {skills[3].get()}")))
+    print(f(_("  - HP IV:  {pal.GetTalentHP()}")))
+    print(f(_("  - Melee IV:  {pal.GetAttackMelee()}")))
+    print(f(_("  - Range IV:  {pal.GetAttackRanged()}")))
+    
+    
 def getSelectedPalData():
     if not isPalSelected():
         return
@@ -191,7 +242,7 @@ def setpreset(preset):
             primary = pal.GetPrimary().lower()
             secondary = pal.GetSecondary().lower()
             if primary == "none":
-                messagebox.showerror("Preset: Dmg: Element", "This pal has no elements! Preset skipped")
+                messagebox.showerror(_("Preset: Dmg: Element", "This pal has no elements! Preset skipped"))
                 return
             skills[0].set("Musclehead")
             skills[1].set("Legend")
@@ -216,13 +267,13 @@ def setpreset(preset):
                 case "water":
                     skills[3].set("Lord of the Sea")
                 case _:
-                    messagebox.showerror(f"Error: elemental was not found for preset: {primary}-{secondary}")
+                    messagebox.showerror(f(_("Error: elemental was not found for preset: {primary}-{secondary}")))
 
             # uncecessary msg
             # if not secondary == "none":
             #     messagebox.showerror(f"You pal has a second elemental - its probably better to use Dmg: Max preset")
         case _:
-            print(f"Preset {preset} not found - nothing changed")
+            print(f(_("Preset {preset} not found - nothing changed")))
             return
 
     for v in range(0, 4):
@@ -329,14 +380,14 @@ def onselect(evt):
     #palname.config(text=pal.GetName())
     speciesvar.set(pal.GetName())
 
-    storageId.config(text=f"StorageID: {pal.storageId}")
-    storageSlot.config(text=f"StorageSlot: {pal.storageSlot}")
+    storageId.config(text=f(_("StorageID: {pal.storageId}")))
+    storageSlot.config(text=f(_("StorageSlot: {pal.storageSlot}")))
 
     g = pal.GetGender()
     palgender.config(text=g, fg=PalGender.MALE.value if g == "Male ♂" else PalGender.FEMALE.value)
 
     title.config(text=f"{pal.GetNickname()}")
-    level.config(text=f"Lv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}")
+    level.config(text=f(_("Lv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}")))
     portrait.config(image=pal.GetImage())
 
     ptype.config(text=pal.GetPrimary(), bg=PalElements[pal.GetPrimary()])
@@ -384,7 +435,7 @@ def onselect(evt):
 
 def changetext(num):
     if num == -1:
-        skilllabel.config(text="Hover a skill to see it's description")
+        skilllabel.config(text=_("Hover a skill to see it's description"))
         return
     
     if not isPalSelected():
@@ -399,14 +450,14 @@ def changetext(num):
 
 
     if skills[num].get() == "Unknown":
-        skilllabel.config(text=f"{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}")
+        skilllabel.config(text=f(_("{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}")))
         return
     skilllabel.config(text=PassiveDescriptions[skills[num].get()])
 
     
 def loadfile():
     global filename
-    skilllabel.config(text="Loading save, please be patient...")
+    skilllabel.config(text=_("Loading save, please be patient..."))
     print(platform.system())
     if platform.system() == "Linux":
         game_folder = os.path.expanduser('~')+"/.local/share/Steam/steamapps/compatdata/1623730/pfx/drive_c/users/steamuser/AppData/Local/Pal/Saved/SaveGames/"
@@ -415,17 +466,17 @@ def loadfile():
             print("Game folder not found")
         file = askopenfilename(initialdir=game_folder, filetypes=[("Level.sav", "Level.sav", ".sav")])
     else:
-        file = askopenfilename(initialdir=os.path.expanduser('~')+"\AppData\Local\Pal\Saved\SaveGames", filetype=[("Level.sav", "Level.sav")])
+        file = askopenfilename(initialdir=os.path.expanduser('~')+"\\AppData\\Local\\Pal\\Saved\\SaveGames", filetype=[("Level.sav", "Level.sav")])
 
-    print(f"Opening file {file}")
+    print(f(_("Opening file {file}")))
 
     if file:
         filename = file
-        root.title(f"PalEdit v{version} - {file}")
-        skilllabel.config(text="Decompiling save, please be patient...")
+        root.title(f(_("PalEdit v{version} - {file}")))
+        skilllabel.config(text=_("Decompiling save, please be patient..."))
         doconvertjson(file, (not debug))
     else:
-        messagebox.showerror("Select a file", "Please select a save file.")
+        messagebox.showerror(_("Select a file"), _("Please select a save file."))
 
 def sortPals(e):
     return e.GetName()
@@ -467,7 +518,7 @@ def load(file):
             n = p.GetFullName()
 
             for m in p.GetLearntMoves():
-                print(f"Checking {m}")
+                print(f(_("Checking {m}")))
                 if not m in nullmoves:
                     if not m in PalAttacks:
                         nullmoves.append(mp)
@@ -475,7 +526,7 @@ def load(file):
         except Exception as e:
 
             if str(e) == "This is a player character":
-                print("Found Player Character")
+                print(_("Found Player Character"))
                 # print(f"\nDebug: Data \n{i}\n\n")
                 o = i['value']['RawData']['value']['object']['SaveParameter']['value']
                 pl = "No Name"
@@ -486,6 +537,7 @@ def load(file):
                 players[pl] = plguid
             else:
                 unknown.append(i)
+                error = str(e)
                 print(f"Error occured: {str(e)}")
             # print(f"Debug: Data {i}")
 
@@ -520,13 +572,13 @@ def load(file):
     
     nullmoves.sort()    
     for i in nullmoves:
-        print(f"{i} was not found in Attack Database")
+        print(f(_("{i} was not found in Attack Database")))
 
     refresh()
 
     changetext(-1)
     jump()
-    messagebox.showinfo("Done", "Done loading!")
+    messagebox.showinfo(_("Done"), _("Done loading!"))
 
 def jump():
     root.attributes('-topmost', 1)
@@ -551,7 +603,7 @@ def savefile():
     global palbox
     global data
     global filename
-    skilllabel.config(text="Saving, please be patient... (it can take up to 5 minutes in large files)")
+    skilllabel.config(text=_("Saving, please be patient... (it can take up to 5 minutes in large files)"))
     root.update()
     
     if isPalSelected():
@@ -561,7 +613,7 @@ def savefile():
     file = filename
     print(file, filename)
     if file:
-        print(f"Opening file {file}")
+        print(f(_("Opening file {file}")))
 
         savejson(file)
         doconvertsave(file)
@@ -569,7 +621,7 @@ def savefile():
 
         changetext(-1)
         jump()
-        messagebox.showinfo("Done", "Done saving!")
+        messagebox.showinfo(_("Done"), _("Done saving!"))
 
 def savepson(filename):
     f = open(filename, "w", encoding="utf8")
@@ -677,7 +729,7 @@ def refresh(num=0):
 
 def converttojson():
 
-    skilllabel.config(text="Converting... this may take a while.")
+    skilllabel.config(text=_("Converting... this may take a while."))
     
     file = askopenfilename(filetype=[("All files", "*.sav")])
     print(f"Opening file {file}")
@@ -694,10 +746,10 @@ def doconvertjson(file, compress=False):
     #messagebox.showinfo("Done", "Done decompiling!")
 
 def converttosave():
-    skilllabel.config(text="Converting... this may take a while.")
+    skilllabel.config(text=_("Converting... this may take a while."))
     
     file = askopenfilename(filetype=[("All files", "*.sav.json")])
-    print(f"Opening file {file}")
+    print(f(_("Opening file {file}")))
 
     doconvertsave(file)
 
@@ -766,16 +818,22 @@ tools = Menu(root)
 root.config(menu=tools)
 
 filemenu = Menu(tools, tearoff=0)
-filemenu.add_command(label="Load PalWorld Save", command=loadfile)
-filemenu.add_command(label="Save Changes To File", command=savefile)
+filemenu.add_command(label=_("Load PalWorld Save"), command=loadfile)
+filemenu.add_command(label=_("Save Changes To File"), command=savefile)
 
-tools.add_cascade(label="File", menu=filemenu, underline=0)
+tools.add_cascade(label=_("File"), menu=filemenu, underline=0)
 
 toolmenu = Menu(tools, tearoff=0)
 toolmenu.add_command(label="Debug", command=toggleDebug)
 # toolmenu.add_command(label="Generate GUID", command=generateguid)
 
-tools.add_cascade(label="Tools", menu=toolmenu, underline=0)
+tools.add_cascade(label=_("Tools"), menu=toolmenu, underline=0)
+languagemenu = Menu(toolmenu)
+languagemenu.add_radiobutton(label="English", command=lambda: change_language('en_US'), variable=selected_language)
+languagemenu.add_radiobutton(label="Español", command=lambda: change_language('es_MX'), variable=selected_language)
+languagemenu.add_radiobutton(label="Deutsch", command=lambda: change_language('de_DE'), variable=selected_language)
+languagemenu.add_radiobutton(label="Portuguese", command=lambda: change_language('pt_BR'), variable=selected_language)
+toolmenu.add_cascade(label=_("Language"), menu=languagemenu, underline=0)
 
 #convmenu = Menu(tools, tearoff=0)
 #convmenu.add_command(label="Convert Save to Json", command=converttojson)
@@ -792,7 +850,7 @@ def changeplayer(evt):
 
 playerframe = Frame(scrollview)
 playerframe.pack(fill=X)
-playerlbl = Label(playerframe, text="Player:")
+playerlbl = Label(playerframe, text=_("Player:"))
 playerlbl.config(justify='center')
 playerlbl.pack(side=LEFT, fill=X, expand=True)
 playerdrop = ttk.Combobox(playerframe, textvariable=current)
@@ -809,7 +867,7 @@ scrollbar.config(command=listdisplay.yview)
 # Attack Skills
 atkskill = Frame(root, width=120, relief="groove", borderwidth=2)
 atkskill.pack(side=RIGHT, fill=Y)
-atkLabel = Label(atkskill, bg="darkgrey", width=12, text="Equipped", font=("Arial", ftsize), justify="center")
+atkLabel = Label(atkskill, bg="darkgrey", width=12, text=_("Equipped"), font=("Arial", ftsize), justify="center")
 atkLabel.pack(fill=X)
 
 attacks = [StringVar(), StringVar(), StringVar()]
@@ -844,18 +902,18 @@ attackdrops[2].config(highlightbackground=PalElements["Dark"], bg=mean_color(Pal
 stats = Frame(atkskill)
 #stats.pack(fill=X)
 
-statLabel = Label(stats, bg="darkgrey", width=12, text="Stats", font=("Arial", ftsize), justify="center")
+statLabel = Label(stats, bg="darkgrey", width=12, text=_("Stats"), font=("Arial", ftsize), justify="center")
 statLabel.pack(fill=X)
 
 
 statlbls = Frame(stats, width=6, bg="darkgrey")
 statlbls.pack(side=LEFT, expand=True, fill=X)
 
-hthstatlbl = Label(statlbls, bg="darkgrey", text="Health", font=("Arial", ftsize), justify="center")
+hthstatlbl = Label(statlbls, bg="darkgrey", text=_("Health"), font=("Arial", ftsize), justify="center")
 hthstatlbl.pack()
-atkstatlbl = Label(statlbls, bg="darkgrey", text="Attack", font=("Arial", ftsize), justify="center")
+atkstatlbl = Label(statlbls, bg="darkgrey", text=_("Attack"), font=("Arial", ftsize), justify="center")
 atkstatlbl.pack()
-defstatlbl = Label(statlbls, bg="darkgrey", text="Defence", font=("Arial", ftsize), justify="center")
+defstatlbl = Label(statlbls, bg="darkgrey", text=_("Defence"), font=("Arial", ftsize), justify="center")
 defstatlbl.pack()
 
 
@@ -869,7 +927,7 @@ atkstatval.pack(fill=X)
 defstatval = Label(statvals, bg="lightgrey", text="50", font=("Arial", ftsize), justify="center")
 defstatval.pack(fill=X)
 
-disclaim = Label(atkskill, bg="darkgrey", text="The values above do not include passive skills", font=("Arial", ftsize//2))
+disclaim = Label(atkskill, bg="darkgrey", text=_("The values above do not include passive skills"), font=("Arial", ftsize//2))
 #disclaim.pack(fill=X)
 
 # Individual Info
@@ -887,18 +945,18 @@ portrait.pack()
 
 typeframe = Frame(resourceview)
 typeframe.pack(expand=True, fill=X)
-ptype = Label(typeframe, text="Electric", font=("Arial", ftsize), bg=PalElements["Electric"], width=6)
+ptype = Label(typeframe, text=_("Electric"), font=("Arial", ftsize), bg=PalElements["Electric"], width=6)
 ptype.pack(side=LEFT, expand=True, fill=X)
-stype = Label(typeframe, text="Dark", font=("Arial", ftsize), bg=PalElements["Dark"], width=6)
+stype = Label(typeframe, text=_("Dark"), font=("Arial", ftsize), bg=PalElements["Dark"], width=6)
 stype.pack(side=RIGHT, expand=True, fill=X)
 
 formframe = Frame(resourceview)
 formframe.pack(expand=True, fill=X)
 luckyvar = IntVar()
 alphavar = IntVar()
-luckybox = Checkbutton(formframe, text='Lucky', variable=luckyvar, onvalue='1', offvalue='0', command=togglelucky)
+luckybox = Checkbutton(formframe, text=_("Lucky"), variable=luckyvar, onvalue='1', offvalue='0', command=togglelucky)
 luckybox.pack(side=LEFT, expand=True)
-alphabox = Checkbutton(formframe, text='Alpha', variable=alphavar, onvalue='1', offvalue='0', command=togglealpha)
+alphabox = Checkbutton(formframe, text=_("Alpha"), variable=alphavar, onvalue='1', offvalue='0', command=togglealpha)
 alphabox.pack(side=RIGHT, expand=True)
 
 deckview = Frame(dataview, width=320, relief="sunken", borderwidth=2, pady=0)
@@ -928,19 +986,19 @@ addlvlbtn.grid(row=0, column=2, sticky="nsew")
 labelview = Frame(deckview, bg="lightgrey", pady=0, padx=16)
 labelview.pack(side=LEFT, expand=True, fill=BOTH)
 
-name = Label(labelview, text="Species", font=("Arial", ftsize), bg="lightgrey")
+name = Label(labelview, text=_("Species"), font=("Arial", ftsize-1), bg="lightgrey")
 name.pack(expand=True, fill=X)
-gender = Label(labelview, text="Gender", font=("Arial", ftsize), bg="lightgrey", width=6, pady=6)
+gender = Label(labelview, text=_("Gender"), font=("Arial", ftsize-1), bg="lightgrey", width=6, pady=6)
 gender.pack(expand=True, fill=X)
-attack = Label(labelview, text="Attack IV%", font=("Arial", ftsize), bg="lightgrey", width=8)
+attack = Label(labelview, text=_("Attack IV%"), font=("Arial", ftsize-1), bg="lightgrey", width=8)
 attack.pack(expand=True, fill=X)
-defence = Label(labelview, text="Defence IV%", font=("Arial", ftsize), bg="lightgrey", width=8)
+defence = Label(labelview, text=_("Defence IV%"), font=("Arial", ftsize-1), bg="lightgrey", width=8)
 defence.pack(expand=True, fill=X)
-workspeed = Label(labelview, text="Workspeed IV%", font=("Arial", ftsize), bg="lightgrey", width=12)
+workspeed = Label(labelview, text=_("Workspeed IV%"), font=("Arial", ftsize-1), bg="lightgrey", width=12)
 workspeed.pack(expand=True, fill=X)
-hp = Label(labelview, text="HP IV%", font=("Arial", ftsize), bg="lightgrey", width=10)
+hp = Label(labelview, text=_("HP IV%"), font=("Arial", ftsize-1), bg="lightgrey", width=10)
 hp.pack(expand=True, fill=X)
-rankspeed = Label(labelview, text="Rank", font=("Arial", ftsize), bg="lightgrey")
+rankspeed = Label(labelview, text=_("Rank"), font=("Arial", ftsize-1), bg="lightgrey")
 rankspeed.pack(expand=True, fill=X)
 
 editview = Frame(deckview)
@@ -956,7 +1014,7 @@ palname.pack(expand=True, fill=X)
 
 genderframe = Frame(editview, pady=0)
 genderframe.pack()
-palgender = Label(genderframe, text="Unknown", font=("Arial", ftsize), fg=PalGender.UNKNOWN.value, width=10)
+palgender = Label(genderframe, text=_("Unknown"), font=("Arial", ftsize-1), fg=PalGender.UNKNOWN.value, width=10)
 palgender.pack(side=LEFT, expand=True, fill=X)
 swapbtn = Button(genderframe, text="↺", borderwidth=1, font=("Arial", ftsize-2), command=swapgender)
 swapbtn.pack(side=RIGHT)
@@ -996,8 +1054,8 @@ attackframe = Frame(editview, width=6)
 attackframe.pack(fill=X)
 meleevar = IntVar()
 shotvar = IntVar()
-meleevar.trace("w", lambda name, index, mode, sv=meleevar: clamp(sv))
-shotvar.trace("w", lambda name, index, mode, sv=shotvar: clamp(sv))
+meleevar.trace_add("write", lambda name, index, mode, sv=meleevar: clamp(sv))
+shotvar.trace_add("write", lambda name, index, mode, sv=shotvar: clamp(sv))
 meleevar.set(100)
 shotvar.set(0)
 meleeicon = Label(attackframe, text="⚔", font=("Arial", ftsize))
@@ -1015,7 +1073,7 @@ palshot.pack(side=RIGHT)
 
 
 defvar = IntVar()
-defvar.trace("w", lambda name, index, mode, sv=defvar: clamp(sv))
+defvar.trace_add("write", lambda name, index, mode, sv=defvar: clamp(sv))
 defvar.set(100)
 paldef = Entry(editview, textvariable=defvar, font=("Arial", ftsize), width=6)
 paldef.config(justify="center", validate="all", validatecommand=(valreg, '%P'))
@@ -1023,7 +1081,7 @@ paldef.bind("<FocusOut>", lambda evt, sv=defvar: fillifempty(sv))
 paldef.pack(expand=True, fill=X)
 
 wspvar = IntVar()
-wspvar.trace("w", lambda name, index, mode, sv=wspvar: clamp(sv))
+wspvar.trace_add("write", lambda name, index, mode, sv=wspvar: clamp(sv))
 wspvar.set(70)
 palwsp = Entry(editview, textvariable=wspvar, font=("Arial", ftsize), width=6)
 palwsp.config(justify="center", validate="all", validatecommand=(valreg, '%P'))
@@ -1040,7 +1098,7 @@ def talent_hp_changed(*args):
     # change value of pal
 
 phpvar = IntVar()
-phpvar.trace("w", lambda name, index, mode, sv=phpvar: clamp(sv))
+phpvar.trace_add("write", lambda name, index, mode, sv=phpvar: clamp(sv))
 phpvar.set(50)
 palhps = Entry(editview, textvariable=phpvar, font=("Arial", ftsize), width=6)
 palhps.config(justify="center", validate="all", validatecommand=(valreg, '%P'))
@@ -1075,7 +1133,7 @@ botview.pack(fill=BOTH, expand=True)
 skills = [StringVar(), StringVar(), StringVar(), StringVar()]
 #for i in range(0, 4):
     #skills[i].set("Unknown")
-    #skills[i].trace("w", lambda *args, num=i: changeskill(num))
+    #skills[i].trace_add("write", lambda *args, num=i: changeskill(num))
 skills[0].set("Legend")
 skills[1].set("Workaholic")
 skills[2].set("Ferocious")
@@ -1122,40 +1180,40 @@ framePresets.pack(fill=BOTH, expand=True)
 
 framePresetsTitle = Frame(framePresets)
 framePresetsTitle.pack(fill=BOTH)
-presetTitle = Label(framePresetsTitle, text='Presets:', anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1).pack(fill=BOTH)
+presetTitle = Label(framePresetsTitle, text=_('Presets:'), anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1).pack(fill=BOTH)
 
 framePresetsButtons = Frame(framePresets, relief="groove", borderwidth=4)
 framePresetsButtons.pack(fill=BOTH, expand=True)
 
 framePresetsButtons1 = Frame(framePresetsButtons)
 framePresetsButtons1.pack(fill=BOTH, expand=True)
-preset_title1 = Label(framePresetsButtons1, text='Utility:', anchor='e', bg="darkgrey", font=("Arial", 13), width=9).pack(side=LEFT, fill=X)
-preset_button = Button(framePresetsButtons1, text="Base", command=preset_base)
+preset_title1 = Label(framePresetsButtons1, text=_('Utility:'), anchor='e', bg="darkgrey", font=("Arial", 13), width=9).pack(side=LEFT, fill=X)
+preset_button = Button(framePresetsButtons1, text=_("Base"), command=preset_base)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons1, text="Speed Worker", command=preset_workspeed)
+preset_button = Button(framePresetsButtons1, text=_("Speed Worker"), command=preset_workspeed)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons1, text="Speed Runner", command=preset_movement)
+preset_button = Button(framePresetsButtons1, text=_("Speed Runner"), command=preset_movement)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons1, text="Tank", command=preset_tank)
+preset_button = Button(framePresetsButtons1, text=_("Tank"), command=preset_tank)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
 
 framePresetsButtons2 = Frame(framePresetsButtons)
 framePresetsButtons2.pack(fill=BOTH, expand=True)
-preset_title2 = Label(framePresetsButtons2, text='Damage:', anchor='e', bg="darkgrey", font=("Arial", 13), width=9).pack(side=LEFT, fill=X)
-preset_button = Button(framePresetsButtons2, text="Max", command=preset_dmg_max)
+preset_title2 = Label(framePresetsButtons2, text=_("Damage:"), anchor='e', bg="darkgrey", font=("Arial", 13), width=9).pack(side=LEFT, fill=X)
+preset_button = Button(framePresetsButtons2, text=_("Max"), command=preset_dmg_max)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons2, text="Balanced", command=preset_dmg_balanced)
+preset_button = Button(framePresetsButtons2, text=_("Balanced"), command=preset_dmg_balanced)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons2, text="Mount", command=preset_dmg_mount)
+preset_button = Button(framePresetsButtons2, text=_("Mount"), command=preset_dmg_mount)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
-preset_button = Button(framePresetsButtons2, text="Element", command=preset_dmg_element)
+preset_button = Button(framePresetsButtons2, text=_("Element"), command=preset_dmg_element)
 preset_button.config(font=("Arial", 12))
 preset_button.pack(side=LEFT, expand=True, fill=BOTH)
 
@@ -1165,9 +1223,9 @@ framePresetsExtras.pack(fill=BOTH, expand=True)
 
 framePresetsLevel = Frame(framePresetsExtras)
 framePresetsLevel.pack(fill=BOTH, expand=True)
-presetTitleLevel = Label(framePresetsLevel, text='Set Level:', anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
+presetTitleLevel = Label(framePresetsLevel, text=_("Set Level:"), anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
 checkboxLevelVar = IntVar()
-checkboxLevel = Checkbutton(framePresetsLevel, text='Preset changes level', variable=checkboxLevelVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
+checkboxLevel = Checkbutton(framePresetsLevel, text=_("Preset changes level"), variable=checkboxLevelVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
 textboxLevelVar = IntVar(value=1)
 textboxLevel = Entry(framePresetsLevel, textvariable=textboxLevelVar, justify='center', width=10)
 textboxLevel.config(font=("Arial", 10), width=10)
@@ -1175,9 +1233,9 @@ textboxLevel.pack(side=LEFT,expand=True, fill=Y)
 
 framePresetsRank = Frame(framePresetsExtras)
 framePresetsRank.pack(fill=BOTH, expand=True)
-presetTitleRank = Label(framePresetsRank, text='Set Rank:', anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
+presetTitleRank = Label(framePresetsRank, text=_("Set Rank:"), anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
 checkboxRankVar = IntVar()
-checkboxRank = Checkbutton(framePresetsRank, text='Preset changes rank', variable=checkboxRankVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
+checkboxRank = Checkbutton(framePresetsRank, text=_("Preset changes rank"), variable=checkboxRankVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
 optionMenuRankVar = IntVar(value=1)
 ranks = ('0', '1', '2', '3', '4')
 optionMenuRank = OptionMenu(framePresetsRank, optionMenuRankVar, *ranks)
@@ -1187,28 +1245,28 @@ optionMenuRank.pack(side=LEFT, expand=True, fill=Y)
 
 framePresetsAttributes = Frame(framePresetsExtras)
 framePresetsAttributes.pack(fill=BOTH, expand=False)
-presetTitleAttributes = Label(framePresetsAttributes, text='Set Attributes:', anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
+presetTitleAttributes = Label(framePresetsAttributes, text=_("Set Attributes:"), anchor='center', bg="lightgrey", font=("Arial", 13), width=20, height=1).pack(side=LEFT, expand=False, fill=Y)
 checkboxAttributesVar = IntVar()
-checkboxAttributes = Checkbutton(framePresetsAttributes, text='Preset changes attributes', variable=checkboxAttributesVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
-presetTitleAttributesTodo = Label(framePresetsAttributes, text='Not Yet', font=("Arial", 10), width=10, justify='center').pack(side=LEFT, expand=True, fill=Y)
+checkboxAttributes = Checkbutton(framePresetsAttributes, text=_("Preset changes attributes"), variable=checkboxAttributesVar, onvalue='1', offvalue='0').pack(side=LEFT,expand=False, fill=BOTH)
+presetTitleAttributesTodo = Label(framePresetsAttributes, text=_("Not Yet"), font=("Arial", 10), width=10, justify='center').pack(side=LEFT, expand=True, fill=Y)
 
 # DEBUG
 frameDebug = Frame(infoview, relief="flat")
 frameDebug.pack()
 frameDebug.pack_forget()
-debugTitle = Label(frameDebug, text='Debug:', anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
+debugTitle = Label(frameDebug, text=_("Debug:"), anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
 debugTitle.pack(fill=BOTH)
-storageId = Label(frameDebug, text='StorageID: NULL', anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
+storageId = Label(frameDebug, text=_("StorageID: NULL"), anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
 storageId.pack(fill=BOTH)
-storageSlot = Label(frameDebug, text='StorageSlot: NULL', anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
+storageSlot = Label(frameDebug, text=_("StorageSlot: NULL"), anchor='w', bg="darkgrey", font=("Arial", ftsize), width=6, height=1)
 storageSlot.pack(fill=BOTH)
-button = Button(frameDebug, text="Get Info", command=getSelectedPalInfo)
+button = Button(frameDebug, text=_("Get Info"), command=getSelectedPalInfo)
 button.config(font=("Arial", 12))
 button.pack(side=LEFT, expand=True, fill=BOTH)
-button = Button(frameDebug, text="Copy Pal Data", command=getSelectedPalData)
+button = Button(frameDebug, text=_("Copy Pal Data"), command=getSelectedPalData)
 button.config(font=("Arial", 12))
 button.pack(side=LEFT, expand=True, fill=BOTH)
-button = Button(frameDebug, text="Generate & Copy GUID", command=createGUIDtoClipboard)
+button = Button(frameDebug, text=_("Generate & Copy GUID"), command=createGUIDtoClipboard)
 button.config(font=("Arial", 12))
 button.pack(side=LEFT, expand=True, fill=BOTH)
 
@@ -1216,7 +1274,7 @@ button.pack(side=LEFT, expand=True, fill=BOTH)
 # FOOTER
 frameFooter = Frame(infoview, relief="flat")
 frameFooter.pack(fill=BOTH, expand=False)
-skilllabel = Label(frameFooter, text="Hover a skill to see it's description")
+skilllabel = Label(frameFooter, text=_("Hover a skill to see it's description"))
 skilllabel.pack()
 
 
@@ -1240,4 +1298,7 @@ def updateWindowSize(doCenter=""):
 # root.resizable(width=False, height=True)
 root.geometry("") # auto window size
 updateWindowSize("true")
+store_original_text(root)
 root.mainloop()
+
+    

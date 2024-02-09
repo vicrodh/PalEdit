@@ -1,0 +1,335 @@
+# Spanish (Mexico) translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-02-08 16:47-0600\n"
+"PO-Revision-Date: 2024-02-08 16:50-0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es_MX\n"
+"Language-Team: es_MX <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: PalEdit.py:109
+msgid "Get Info: {pal.GetNickname()}"
+msgstr "Obtener Info: {pal.GetNickname()}"
+
+#: PalEdit.py:110
+msgid "  - Level: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "  - Nivel: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:111
+msgid "  - Rank: {pal.GetRank()}"
+msgstr "  - Rango: {pal.GetRank()}"
+
+#: PalEdit.py:112
+msgid "  - Skill 1:  {skills[0].get()}"
+msgstr "  - Habilidad 1:  {skills[0].get()}"
+
+#: PalEdit.py:113
+msgid "  - Skill 2:  {skills[1].get()}"
+msgstr "  - Habilidad 2:  {skills[1].get()}"
+
+#: PalEdit.py:114
+msgid "  - Skill 3:  {skills[2].get()}"
+msgstr "  - Habilidad 3:  {skills[2].get()}"
+
+#: PalEdit.py:115
+msgid "  - Skill 4:  {skills[3].get()}"
+msgstr "  - Habilidad 4:  {skills[2].get()}"
+
+#: PalEdit.py:116
+msgid "  - HP IV:  {pal.GetTalentHP()}"
+msgstr "  - PV IV:  {pal.GetTalentHP()}"
+
+#: PalEdit.py:117
+msgid "  - Melee IV:  {pal.GetAttackMelee()}"
+msgstr "  - Cuerpo a Cuerpo IV:  {pal.GetAttackMelee()}"
+
+#: PalEdit.py:118
+msgid "  - Range IV:  {pal.GetAttackRanged()}"
+msgstr "  - Distancia IV:  {pal.GetAttackRanged()}"
+
+#: PalEdit.py:206
+msgid "Preset: Dmg: Element"
+msgstr "Preconfig: Daño: Elemental"
+
+#: PalEdit.py:231
+msgid "Error: elemental was not found for preset: {primary}-{secondary}"
+msgstr "Error: no se encontró el elemento para la preconfiguración: {primary}-{secondary}"
+
+#: PalEdit.py:237
+msgid "Preset {preset} not found - nothing changed"
+msgstr "Preconfiguración {preset} no encontrada - nada cambió"
+
+#: PalEdit.py:344
+msgid "StorageID: {pal.storageId}"
+msgstr "ID de almacenamiento: {pal.storageId}"
+
+#: PalEdit.py:345
+msgid "StorageSlot: {pal.storageSlot}"
+msgstr "Ranura de almacenamiento: {pal.storageSlot}"
+
+#: PalEdit.py:351
+msgid "Lv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "Nv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:399 PalEdit.py:1215
+msgid "Hover a skill to see it's description"
+msgstr "Pasa el cursor sobre una habilidad para ver su descripción"
+
+#: PalEdit.py:414
+msgid "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+msgstr "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+
+#: PalEdit.py:421
+msgid "Loading save, please be patient..."
+msgstr "Cargando guardado, por favor ten paciencia..."
+
+#: PalEdit.py:432 PalEdit.py:577 PalEdit.py:713
+msgid "Opening file {file}"
+msgstr "Abriendo archivo {file}"
+
+#: PalEdit.py:436
+msgid "PalEdit v{version} - {file}"
+msgstr "PalEdit v{version} - {file}"
+
+#: PalEdit.py:437
+msgid "Decompiling save, please be patient..."
+msgstr "Descompilando guardado, por favor ten paciencia..."
+
+#: PalEdit.py:440
+msgid "Select a file"
+msgstr "Selecciona un archivo"
+
+#: PalEdit.py:440
+msgid "Please select a save file."
+msgstr "Por favor selecciona un archivo de guardado."
+
+#: PalEdit.py:482
+msgid "Checking {m}"
+msgstr "Revisando {m}"
+
+#: PalEdit.py:490
+msgid "Found Player Character"
+msgstr "Personaje del jugador encontrado"
+
+#: PalEdit.py:536
+msgid "{i} was not found in Attack Database"
+msgstr "{i} no fue encontrado en la Base de Datos de Ataques"
+
+#: PalEdit.py:542 PalEdit.py:585
+msgid "Done"
+msgstr "Hecho"
+
+#: PalEdit.py:542
+msgid "Done loading!"
+msgstr "¡Hecho cargando!"
+
+#: PalEdit.py:567
+msgid "Saving, please be patient... (it can take up to 5 minutes in large files)"
+msgstr "Guardando, por favor ten paciencia... (puede tardar hasta 5 minutos en archivos grandes)"
+
+#: PalEdit.py:585
+msgid "Done saving!"
+msgstr "¡Guardado hecho!"
+
+#: PalEdit.py:693 PalEdit.py:710
+msgid "Converting... this may take a while."
+msgstr "Convirtiendo... esto puede tomar un tiempo."
+
+#: PalEdit.py:782
+msgid "Load PalWorld Save"
+msgstr "Cargar Guardado de PalWorld"
+
+#: PalEdit.py:783
+msgid "Save Changes To File"
+msgstr "Guardar Cambios en Archivo"
+
+#: PalEdit.py:785
+msgid "File"
+msgstr "Archivo"
+
+#: PalEdit.py:791
+msgid "Tools"
+msgstr "Herramientas"
+
+#: PalEdit.py:808
+msgid "Player:"
+msgstr "Jugador:"
+
+#: PalEdit.py:825
+msgid "Equipped"
+msgstr "Equipado"
+
+#: PalEdit.py:860
+msgid "Stats"
+msgstr "Estadísticas"
+
+#: PalEdit.py:867
+msgid "Health"
+msgstr "Salud"
+
+#: PalEdit.py:869
+msgid "Attack"
+msgstr "Ataque"
+
+#: PalEdit.py:871
+msgid "Defence"
+msgstr "Defensa"
+
+#: PalEdit.py:885
+msgid "The values above do not include passive skills"
+msgstr "Los valores anteriores no incluyen habilidades pasivas"
+
+#: PalEdit.py:903
+msgid "Electric"
+msgstr "Eléctrico"
+
+#: PalEdit.py:905
+msgid "Dark"
+msgstr "Oscuro"
+
+#: PalEdit.py:912
+msgid "Lucky"
+msgstr "Suerte"
+
+#: PalEdit.py:914
+msgid "Alpha"
+msgstr "Alfa"
+
+#: PalEdit.py:944
+msgid "Species"
+msgstr "Especie"
+
+#: PalEdit.py:946
+msgid "Gender"
+msgstr "Género"
+
+#: PalEdit.py:948
+msgid "Attack IV%"
+msgstr "IV de Ataque%"
+
+#: PalEdit.py:950
+msgid "Defence IV%"
+msgstr "IV de Defensa%"
+
+#: PalEdit.py:952
+msgid "Workspeed IV%"
+msgstr "IV de Velocidad de Trabajo%"
+
+#: PalEdit.py:954
+msgid "HP IV%"
+msgstr "IV de PV%"
+
+#: PalEdit.py:956
+msgid "Rank"
+msgstr "Rango"
+
+#: PalEdit.py:972
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: PalEdit.py:1121
+msgid "Presets:"
+msgstr "Preconfiguraciones:"
+
+#: PalEdit.py:1128
+msgid "Utility:"
+msgstr "Utilidad:"
+
+#: PalEdit.py:1129
+msgid "Base"
+msgstr "Base"
+
+#: PalEdit.py:1132
+msgid "Speed Worker"
+msgstr "Trabajador Veloz"
+
+#: PalEdit.py:1135
+msgid "Speed Runner"
+msgstr "Corredor Veloz"
+
+#: PalEdit.py:1138
+msgid "Tank"
+msgstr "Tanque"
+
+#: PalEdit.py:1144
+msgid "Damage:"
+msgstr "Daño:"
+
+#: PalEdit.py:1145
+msgid "Max"
+msgstr "Máx"
+
+#: PalEdit.py:1148
+msgid "Balanced"
+msgstr "Equilibrado"
+
+#: PalEdit.py:1151
+msgid "Mount"
+msgstr "Montura"
+
+#: PalEdit.py:1154
+msgid "Element"
+msgstr "Elemento"
+
+#: PalEdit.py:1164
+msgid "Set Level:"
+msgstr "Establecer Nivel:"
+
+#: PalEdit.py:1166
+msgid "Preset changes level"
+msgstr "La preconfiguración cambia el nivel"
+
+#: PalEdit.py:1174
+msgid "Set Rank:"
+msgstr "Establecer Rango:"
+
+#: PalEdit.py:1176
+msgid "Preset changes rank"
+msgstr "La preconfiguración cambia el rango"
+
+#: PalEdit.py:1186
+msgid "Set Attributes:"
+msgstr "Establecer Atributos:"
+
+#: PalEdit.py:1188
+msgid "Preset changes attributes"
+msgstr "La preconfiguración cambia los atributos"
+
+#: PalEdit.py:1189
+msgid "Not Yet"
+msgstr "Aún no"
+
+#: PalEdit.py:1195
+msgid "Debug:"
+msgstr "Depuración:"
+
+#: PalEdit.py:1197
+msgid "StorageID: NULL"
+msgstr "ID de almacenamiento: NULL"
+
+#: PalEdit.py:1199
+msgid "StorageSlot: NULL"
+msgstr "Ranura de almacenamiento: NULL"
+
+#: PalEdit.py:1201
+msgid "Get Info"
+msgstr "Obtener Info"
+
+#: PalEdit.py:1204
+msgid "Copy Pal Data"
+msgstr "Copiar Datos de Pal"
+
+#: PalEdit.py:1207
+msgid "Generate & Copy GUID"
+msgstr "Generar y Copiar GUID"

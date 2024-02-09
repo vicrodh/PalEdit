@@ -4,7 +4,7 @@ from cx_Freeze import setup, Executable
 build_options = {
     "excludes": [],
     "zip_include_packages": [],
-    "include_files": ["resources/"],
+    "include_files": ["resources/","locale/"],
 }
 
 if sys.platform == "win32":
