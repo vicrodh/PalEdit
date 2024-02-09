@@ -1,7 +1,15 @@
 altgraph==0.17.4
+Babel==2.14.0
+beautifulsoup4==4.12.3
+cx_Freeze==6.15.14
+lxml==5.1.0
 packaging==23.2
+patchelf==0.17.2.1
 pefile==2023.2.7
 pillow==10.2.0
 pyinstaller==6.3.0
 pyinstaller-hooks-contrib==2024.0
+pyperclip==1.8.2
+python-appimage==1.2.5
 pywin32-ctypes==0.2.2
+soupsieve==2.5

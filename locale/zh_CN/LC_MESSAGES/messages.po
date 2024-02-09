@@ -1,0 +1,335 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-02-08 16:47-0600\n"
+"PO-Revision-Date: 2024-02-08 19:43-0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: PalEdit.py:109
+msgid "Get Info: {pal.GetNickname()}"
+msgstr "获取信息：{pal.GetNickname()}"
+
+#: PalEdit.py:110
+msgid "  - Level: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "  - 等级：{pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:111
+msgid "  - Rank: {pal.GetRank()}"
+msgstr "  - 等级：{pal.GetRank()}"
+
+#: PalEdit.py:112
+msgid "  - Skill 1:  {skills[0].get()}"
+msgstr "  - 技能 1： {skills[0].get()}"
+
+#: PalEdit.py:113
+msgid "  - Skill 2:  {skills[1].get()}"
+msgstr "  - 技能 2： {skills[1].get()}"
+
+#: PalEdit.py:114
+msgid "  - Skill 3:  {skills[2].get()}"
+msgstr "  - 技能 3： {skills[2].get()}"
+
+#: PalEdit.py:115
+msgid "  - Skill 4:  {skills[3].get()}"
+msgstr "  - 技能 4： {skills[2].get()}"
+
+#: PalEdit.py:116
+msgid "  - HP IV:  {pal.GetTalentHP()}"
+msgstr "  - 生命值IV： {pal.GetTalentHP()}"
+
+#: PalEdit.py:117
+msgid "  - Melee IV:  {pal.GetAttackMelee()}"
+msgstr "  - 近战IV： {pal.GetAttackMelee()}"
+
+#: PalEdit.py:118
+msgid "  - Range IV:  {pal.GetAttackRanged()}"
+msgstr "  - 远程IV： {pal.GetAttackRanged()}"
+
+#: PalEdit.py:206
+msgid "Preset: Dmg: Element"
+msgstr "预设：伤害：元素"
+
+#: PalEdit.py:231
+msgid "Error: elemental was not found for preset: {primary}-{secondary}"
+msgstr "错误：未找到预设的元素：{primary}-{secondary}"
+
+#: PalEdit.py:237
+msgid "Preset {preset} not found - nothing changed"
+msgstr "未找到预设{preset} - 未做任何更改"
+
+#: PalEdit.py:344
+msgid "StorageID: {pal.storageId}"
+msgstr "存储ID：{pal.storageId}"
+
+#: PalEdit.py:345
+msgid "StorageSlot: {pal.storageSlot}"
+msgstr "存储槽：{pal.storageSlot}"
+
+#: PalEdit.py:351
+msgid "Lv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "等级 {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:399 PalEdit.py:1215
+msgid "Hover a skill to see it's description"
+msgstr "悬停技能以查看其描述"
+
+#: PalEdit.py:414
+msgid "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+msgstr "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+
+#: PalEdit.py:421
+msgid "Loading save, please be patient..."
+msgstr "加载存档中，请耐心等待..."
+
+#: PalEdit.py:432 PalEdit.py:577 PalEdit.py:713
+msgid "Opening file {file}"
+msgstr "打开文件 {file}"
+
+#: PalEdit.py:436
+msgid "PalEdit v{version} - {file}"
+msgstr "PalEdit v{version} - {file}"
+
+#: PalEdit.py:437
+msgid "Decompiling save, please be patient..."
+msgstr "解编译存档中，请耐心等待..."
+
+#: PalEdit.py:440
+msgid "Select a file"
+msgstr "选择文件"
+
+#: PalEdit.py:440
+msgid "Please select a save file."
+msgstr "请选择一个存档文件。"
+
+#: PalEdit.py:482
+msgid "Checking {m}"
+msgstr "正在检查 {m}"
+
+#: PalEdit.py:490
+msgid "Found Player Character"
+msgstr "找到玩家角色"
+
+#: PalEdit.py:536
+msgid "{i} was not found in Attack Database"
+msgstr "{i} 在攻击数据库中未找到"
+
+#: PalEdit.py:542 PalEdit.py:585
+msgid "Done"
+msgstr "完成"
+
+#: PalEdit.py:542
+msgid "Done loading!"
+msgstr "加载完成！"
+
+#: PalEdit.py:567
+msgid "Saving, please be patient... (it can take up to 5 minutes in large files)"
+msgstr "保存中，请耐心等待...（大文件可能需要长达5分钟）"
+
+#: PalEdit.py:585
+msgid "Done saving!"
+msgstr "保存完成！"
+
+#: PalEdit.py:693 PalEdit.py:710
+msgid "Converting... this may take a while."
+msgstr "转换中... 这可能需要一些时间。"
+
+#: PalEdit.py:782
+msgid "Load PalWorld Save"
+msgstr "加载PalWorld存档"
+
+#: PalEdit.py:783
+msgid "Save Changes To File"
+msgstr "保存更改到文件"
+
+#: PalEdit.py:785
+msgid "File"
+msgstr "文件"
+
+#: PalEdit.py:791
+msgid "Tools"
+msgstr "工具"
+
+#: PalEdit.py:808
+msgid "Player:"
+msgstr "玩家："
+
+#: PalEdit.py:825
+msgid "Equipped"
+msgstr "已装备"
+
+#: PalEdit.py:860
+msgid "Stats"
+msgstr "统计"
+
+#: PalEdit.py:867
+msgid "Health"
+msgstr "生命"
+
+#: PalEdit.py:869
+msgid "Attack"
+msgstr "攻击"
+
+#: PalEdit.py:871
+msgid "Defence"
+msgstr "防御"
+
+#: PalEdit.py:885
+msgid "The values above do not include passive skills"
+msgstr "上述值不包括被动技能"
+
+#: PalEdit.py:903
+msgid "Electric"
+msgstr "电击"
+
+#: PalEdit.py:905
+msgid "Dark"
+msgstr "黑暗"
+
+#: PalEdit.py:912
+msgid "Lucky"
+msgstr "幸运"
+
+#: PalEdit.py:914
+msgid "Alpha"
+msgstr "阿尔法"
+
+#: PalEdit.py:944
+msgid "Species"
+msgstr "物种"
+
+#: PalEdit.py:946
+msgid "Gender"
+msgstr "性别"
+
+#: PalEdit.py:948
+msgid "Attack IV%"
+msgstr "攻击IV%"
+
+#: PalEdit.py:950
+msgid "Defence IV%"
+msgstr "防御IV%"
+
+#: PalEdit.py:952
+msgid "Workspeed IV%"
+msgstr "工作速度IV%"
+
+#: PalEdit.py:954
+msgid "HP IV%"
+msgstr "生命值IV%"
+
+#: PalEdit.py:956
+msgid "Rank"
+msgstr "等级"
+
+#: PalEdit.py:972
+msgid "Unknown"
+msgstr "未知"
+
+#: PalEdit.py:1121
+msgid "Presets:"
+msgstr "预设："
+
+#: PalEdit.py:1128
+msgid "Utility:"
+msgstr "实用工具："
+
+#: PalEdit.py:1129
+msgid "Base"
+msgstr "基础"
+
+#: PalEdit.py:1132
+msgid "Speed Worker"
+msgstr "速度工人"
+
+#: PalEdit.py:1135
+msgid "Speed Runner"
+msgstr "速度奔跑者"
+
+#: PalEdit.py:1138
+msgid "Tank"
+msgstr "坦克"
+
+#: PalEdit.py:1144
+msgid "Damage:"
+msgstr "伤害："
+
+#: PalEdit.py:1145
+msgid "Max"
+msgstr "最大"
+
+#: PalEdit.py:1148
+msgid "Balanced"
+msgstr "平衡"
+
+#: PalEdit.py:1151
+msgid "Mount"
+msgstr "装配"
+
+#: PalEdit.py:1154
+msgid "Element"
+msgstr "元素"
+
+#: PalEdit.py:1164
+msgid "Set Level:"
+msgstr "设置等级："
+
+#: PalEdit.py:1166
+msgid "Preset changes level"
+msgstr "预设更改等级"
+
+#: PalEdit.py:1174
+msgid "Set Rank:"
+msgstr "设置等级："
+
+#: PalEdit.py:1176
+msgid "Preset changes rank"
+msgstr "预设更改等级"
+
+#: PalEdit.py:1186
+msgid "Set Attributes:"
+msgstr "设置属性："
+
+#: PalEdit.py:1188
+msgid "Preset changes attributes"
+msgstr "预设更改属性"
+
+#: PalEdit.py:1189
+msgid "Not Yet"
+msgstr "尚未"
+
+#: PalEdit.py:1195
+msgid "Debug:"
+msgstr "调试："
+
+#: PalEdit.py:1197
+msgid "StorageID: NULL"
+msgstr "存储ID：NULL"
+
+#: PalEdit.py:1199
+msgid "StorageSlot: NULL"
+msgstr "存储槽：NULL"
+
+#: PalEdit.py:1201
+msgid "Get Info"
+msgstr "获取信息"
+
+#: PalEdit.py:1204
+msgid "Copy Pal Data"
+msgstr "复制Pal数据"
+
+#: PalEdit.py:1207
+msgid "Generate & Copy GUID"
+msgstr "生成并复制GUID"

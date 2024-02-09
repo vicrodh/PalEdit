@@ -1,0 +1,335 @@
+# Japanese translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-02-08 16:47-0600\n"
+"PO-Revision-Date: 2024-02-08 19:42-0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: PalEdit.py:109
+msgid "Get Info: {pal.GetNickname()}"
+msgstr "情報を取得：{pal.GetNickname()}"
+
+#: PalEdit.py:110
+msgid "  - Level: {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "  - レベル：{pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:111
+msgid "  - Rank: {pal.GetRank()}"
+msgstr "  - ランク：{pal.GetRank()}"
+
+#: PalEdit.py:112
+msgid "  - Skill 1:  {skills[0].get()}"
+msgstr "  - スキル1：{skills[0].get()}"
+
+#: PalEdit.py:113
+msgid "  - Skill 2:  {skills[1].get()}"
+msgstr "  - スキル2：{skills[1].get()}"
+
+#: PalEdit.py:114
+msgid "  - Skill 3:  {skills[2].get()}"
+msgstr "  - スキル3：{skills[2].get()}"
+
+#: PalEdit.py:115
+msgid "  - Skill 4:  {skills[3].get()}"
+msgstr "  - スキル4：{skills[2].get()}"
+
+#: PalEdit.py:116
+msgid "  - HP IV:  {pal.GetTalentHP()}"
+msgstr "  - HP IV：{pal.GetTalentHP()}"
+
+#: PalEdit.py:117
+msgid "  - Melee IV:  {pal.GetAttackMelee()}"
+msgstr "  - 近接戦闘IV：{pal.GetAttackMelee()}"
+
+#: PalEdit.py:118
+msgid "  - Range IV:  {pal.GetAttackRanged()}"
+msgstr "  - 射撃IV：{pal.GetAttackRanged()}"
+
+#: PalEdit.py:206
+msgid "Preset: Dmg: Element"
+msgstr "プリセット：ダメージ：要素"
+
+#: PalEdit.py:231
+msgid "Error: elemental was not found for preset: {primary}-{secondary}"
+msgstr "エラー：プリセットの要素が見つかりませんでした：{primary}-{secondary}"
+
+#: PalEdit.py:237
+msgid "Preset {preset} not found - nothing changed"
+msgstr "プリセット {preset} が見つかりませんでした - 何も変更されませんでした"
+
+#: PalEdit.py:344
+msgid "StorageID: {pal.storageId}"
+msgstr "ストレージID：{pal.storageId}"
+
+#: PalEdit.py:345
+msgid "StorageSlot: {pal.storageSlot}"
+msgstr "ストレージスロット：{pal.storageSlot}"
+
+#: PalEdit.py:351
+msgid "Lv. {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+msgstr "レベル {pal.GetLevel() if pal.GetLevel() > 0 else '?'}"
+
+#: PalEdit.py:399 PalEdit.py:1215
+msgid "Hover a skill to see it's description"
+msgstr "スキルにカーソルを合わせて説明を表示"
+
+#: PalEdit.py:414
+msgid "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+msgstr "{pal.GetSkills()[num]}{PassiveDescriptions['Unknown']}"
+
+#: PalEdit.py:421
+msgid "Loading save, please be patient..."
+msgstr "セーブを読み込み中です。しばらくお待ちください..."
+
+#: PalEdit.py:432 PalEdit.py:577 PalEdit.py:713
+msgid "Opening file {file}"
+msgstr "ファイルを開いています {file}"
+
+#: PalEdit.py:436
+msgid "PalEdit v{version} - {file}"
+msgstr "PalEdit v{version} - {file}"
+
+#: PalEdit.py:437
+msgid "Decompiling save, please be patient..."
+msgstr "セーブを逆コンパイル中です。しばらくお待ちください..."
+
+#: PalEdit.py:440
+msgid "Select a file"
+msgstr "ファイルを選択"
+
+#: PalEdit.py:440
+msgid "Please select a save file."
+msgstr "セーブファイルを選択してください。"
+
+#: PalEdit.py:482
+msgid "Checking {m}"
+msgstr "{m} をチェック中"
+
+#: PalEdit.py:490
+msgid "Found Player Character"
+msgstr "プレイヤーキャラクターが見つかりました"
+
+#: PalEdit.py:536
+msgid "{i} was not found in Attack Database"
+msgstr "{i} は攻撃データベースに見つかりませんでした"
+
+#: PalEdit.py:542 PalEdit.py:585
+msgid "Done"
+msgstr "完了"
+
+#: PalEdit.py:542
+msgid "Done loading!"
+msgstr "読み込みが完了しました！"
+
+#: PalEdit.py:567
+msgid "Saving, please be patient... (it can take up to 5 minutes in large files)"
+msgstr "保存中、しばらくお待ちください...（大きなファイルでは最大5分かかる場合があります）"
+
+#: PalEdit.py:585
+msgid "Done saving!"
+msgstr "保存が完了しました！"
+
+#: PalEdit.py:693 PalEdit.py:710
+msgid "Converting... this may take a while."
+msgstr "変換中... しばらくお待ちください。"
+
+#: PalEdit.py:782
+msgid "Load PalWorld Save"
+msgstr "PalWorldセーブを読み込む"
+
+#: PalEdit.py:783
+msgid "Save Changes To File"
+msgstr "変更をファイルに保存"
+
+#: PalEdit.py:785
+msgid "File"
+msgstr "ファイル"
+
+#: PalEdit.py:791
+msgid "Tools"
+msgstr "ツール"
+
+#: PalEdit.py:808
+msgid "Player:"
+msgstr "プレイヤー："
+
+#: PalEdit.py:825
+msgid "Equipped"
+msgstr "装備済み"
+
+#: PalEdit.py:860
+msgid "Stats"
+msgstr "統計"
+
+#: PalEdit.py:867
+msgid "Health"
+msgstr "体力"
+
+#: PalEdit.py:869
+msgid "Attack"
+msgstr "攻撃"
+
+#: PalEdit.py:871
+msgid "Defence"
+msgstr "防御"
+
+#: PalEdit.py:885
+msgid "The values above do not include passive skills"
+msgstr "上記の値にはパッシブスキルは含まれません"
+
+#: PalEdit.py:903
+msgid "Electric"
+msgstr "電気"
+
+#: PalEdit.py:905
+msgid "Dark"
+msgstr "暗い"
+
+#: PalEdit.py:912
+msgid "Lucky"
+msgstr "ラッキー"
+
+#: PalEdit.py:914
+msgid "Alpha"
+msgstr "アルファ"
+
+#: PalEdit.py:944
+msgid "Species"
+msgstr "種類"
+
+#: PalEdit.py:946
+msgid "Gender"
+msgstr "性別"
+
+#: PalEdit.py:948
+msgid "Attack IV%"
+msgstr "攻撃IV%"
+
+#: PalEdit.py:950
+msgid "Defence IV%"
+msgstr "防御IV%"
+
+#: PalEdit.py:952
+msgid "Workspeed IV%"
+msgstr "作業速度IV%"
+
+#: PalEdit.py:954
+msgid "HP IV%"
+msgstr "HP IV%"
+
+#: PalEdit.py:956
+msgid "Rank"
+msgstr "ランク"
+
+#: PalEdit.py:972
+msgid "Unknown"
+msgstr "不明"
+
+#: PalEdit.py:1121
+msgid "Presets:"
+msgstr "プリセット："
+
+#: PalEdit.py:1128
+msgid "Utility:"
+msgstr "ユーティリティ："
+
+#: PalEdit.py:1129
+msgid "Base"
+msgstr "ベース"
+
+#: PalEdit.py:1132
+msgid "Speed Worker"
+msgstr "速度ワーカー"
+
+#: PalEdit.py:1135
+msgid "Speed Runner"
+msgstr "速度ランナー"
+
+#: PalEdit.py:1138
+msgid "Tank"
+msgstr "タンク"
+
+#: PalEdit.py:1144
+msgid "Damage:"
+msgstr "ダメージ："
+
+#: PalEdit.py:1145
+msgid "Max"
+msgstr "最大"
+
+#: PalEdit.py:1148
+msgid "Balanced"
+msgstr "バランスの取れた"
+
+#: PalEdit.py:1151
+msgid "Mount"
+msgstr "マウント"
+
+#: PalEdit.py:1154
+msgid "Element"
+msgstr "要素"
+
+#: PalEdit.py:1164
+msgid "Set Level:"
+msgstr "レベル設定："
+
+#: PalEdit.py:1166
+msgid "Preset changes level"
+msgstr "プリセットがレベルを変更"
+
+#: PalEdit.py:1174
+msgid "Set Rank:"
+msgstr "ランク設定："
+
+#: PalEdit.py:1176
+msgid "Preset changes rank"
+msgstr "プリセットがランクを変更"
+
+#: PalEdit.py:1186
+msgid "Set Attributes:"
+msgstr "属性設定："
+
+#: PalEdit.py:1188
+msgid "Preset changes attributes"
+msgstr "プリセットが属性を変更"
+
+#: PalEdit.py:1189
+msgid "Not Yet"
+msgstr "まだ"
+
+#: PalEdit.py:1195
+msgid "Debug:"
+msgstr "デバッグ："
+
+#: PalEdit.py:1197
+msgid "StorageID: NULL"
+msgstr "ストレージID：NULL"
+
+#: PalEdit.py:1199
+msgid "StorageSlot: NULL"
+msgstr "ストレージスロット：NULL"
+
+#: PalEdit.py:1201
+msgid "Get Info"
+msgstr "情報を取得"
+
+#: PalEdit.py:1204
+msgid "Copy Pal Data"
+msgstr "パルデータをコピー"
+
+#: PalEdit.py:1207
+msgid "Generate & Copy GUID"
+msgstr "GUIDを生成してコピー"
